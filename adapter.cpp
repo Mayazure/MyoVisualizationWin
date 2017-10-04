@@ -51,6 +51,11 @@ void Adapter::updateGraph(int index, int* emg, int a,int b,int c, int d, int e, 
     emit requestUpdateGraph(index, emg, a,b,c,d,e,f,g,h);
 }
 
+void Adapter::updateGyro(float x, float y, float z)
+{
+    emit requestUpdateGyro(x, y, z);
+}
+
 void Adapter::setPath(QString filePath, QString fileName)
 {
     this->filePath = filePath;

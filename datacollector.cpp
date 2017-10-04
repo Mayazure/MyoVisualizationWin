@@ -87,6 +87,21 @@ void DataCollector::onOrientationData(myo::Myo *myo, uint64_t timestamp, const m
         ad->updateTotalNum(4);
     }
 
+
+    using std::atan2;
+    using std::asin;
+    using std::sqrt;
+    using std::max;
+    using std::min;
+    float roll = atan2(2.0f * (rotation.w() * rotation.x() + rotation.y() * rotation.z()),
+                       1.0f - 2.0f * (rotation.x() * rotation.x() + rotation.y() * rotation.y()));
+    float pitch = asin(max(-1.0f, min(1.0f, 2.0f * (rotation.w() * rotation.y() - rotation.z() * rotation.x()))));
+    float yaw = atan2(2.0f * (rotation.w() * rotation.z() + rotation.x() * rotation.y()),
+                      1.0f - 2.0f * (rotation.y() * rotation.y() + rotation.z() * rotation.z()));
+
+//    ad->updateGyro(roll,pitch,yaw);
+    ad->updateGyro(rotation.x(),rotation.y(),rotation.z());
+
 }
 
 // onAccelerometerData is called whenever new acceleromenter data is provided
@@ -97,6 +112,7 @@ void DataCollector::onAccelerometerData(myo::Myo *myo, uint64_t timestamp, const
         printVector(accelerometerFile, timestamp, accel);
         ad->updateTotalNum(2);
     }
+//    ad->updateGyro(accel.x(),accel.y(),accel.z());
 }
 
 // onGyroscopeData is called whenever new gyroscope data is provided
@@ -106,6 +122,8 @@ void DataCollector::onGyroscopeData(myo::Myo *myo, uint64_t timestamp, const myo
         printVector(gyroFile, timestamp, gyro);
         ad->updateTotalNum(1);
     }
+
+//    ad->updateGyro(gyro.x(),gyro.y(),gyro.z());
 }
 
 void DataCollector::onConnect(myo::Myo *myo, uint64_t timestamp, myo::FirmwareVersion firmwareVersion)

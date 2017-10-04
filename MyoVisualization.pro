@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     podwindow.cpp \
     myobutton.cpp \
     scatterwindow.cpp \
-    scatterdatamodifier.cpp
+    scatterdatamodifier.cpp \
+    scatterwindow.cpp
 
 HEADERS  += mainwindow.h \
     myo/cxx/detail/ThrowOnError.hpp \
@@ -61,11 +62,13 @@ HEADERS  += mainwindow.h \
     podwindow.h \
     myobutton.h \
     scatterwindow.h \
-    scatterdatamodifier.h
+    scatterdatamodifier.h \
+    scatterwindow.h
 
 FORMS    += mainwindow.ui \
     graphwindow.ui \
     podwindow.ui \
+    scatterwindow.ui \
     scatterwindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/./ -lmyo64

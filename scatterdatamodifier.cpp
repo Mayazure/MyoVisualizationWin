@@ -101,28 +101,28 @@ void ScatterDataModifier::addData()
     //! [5]
 
     // set 8 points in the corner to fix axis
-    ptrToDataArray->setPosition(QVector3D(22.0f, 11.0f, 22.0f));
+    ptrToDataArray->setPosition(QVector3D(32.0f, 16.0f, 32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(-22.0f, 11.0f, 22.0f));
+    ptrToDataArray->setPosition(QVector3D(-32.0f, 16.0f, 32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(22.0f, -11.0f, 22.0f));
+    ptrToDataArray->setPosition(QVector3D(32.0f, -16.0f, 32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(22.0f, 11.0f, -22.0f));
+    ptrToDataArray->setPosition(QVector3D(32.0f, 16.0f, -32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(-22.0f, -11.0f, 22.0f));
+    ptrToDataArray->setPosition(QVector3D(-32.0f, -16.0f, 32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(-22.0f, 11.0f, -22.0f));
+    ptrToDataArray->setPosition(QVector3D(-32.0f, 16.0f, -32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(22.0f, -11.0f, -22.0f));
+    ptrToDataArray->setPosition(QVector3D(32.0f, -16.0f, -32.0f));
     ptrToDataArray++;
-    ptrToDataArray->setPosition(QVector3D(-22.0f, -11.0f, -22.0f));
+    ptrToDataArray->setPosition(QVector3D(-32.0f, -16.0f, -32.0f));
     ptrToDataArray++;
 
     //! [6]
     // draw the column points to (0, 0, 10)
     total_point = 0;
     for (float z = 0.0f; z <= 10.0f; z += 1.0f){
-        for (float theta = 0.0f; theta < PI / 2 + PI / 6; theta += PI / 6, total_point += 4){
+        for (float theta = 0.0f; theta < PI / 2 + PI / 10; theta += PI / 10, total_point += 4){
             float y = 1 * qCos(theta);
             ptrToDataArray->setPosition(QVector3D(sqrt(1.0f - y * y), y, z));
             ptrToDataArray++;
@@ -137,6 +137,22 @@ void ScatterDataModifier::addData()
         }
     }
     //! [6]
+
+    for (float z = 11.0f; z <= 15.0f; z += 1.0f){
+        for (float theta = 0.0f; theta < PI / 2 + PI / 10; theta += PI / 10, total_point += 4){
+            float y = sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z)) * qCos(theta);
+            ptrToDataArray->setPosition(QVector3D(sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z) - y * y), y, z));
+            ptrToDataArray++;
+            ptrToDataArray->setPosition(QVector3D(-sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z) - y * y), y, z));
+            ptrToDataArray++;
+
+            y = -y;
+            ptrToDataArray->setPosition(QVector3D(sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z) - y * y), y, z));
+            ptrToDataArray++;
+            ptrToDataArray->setPosition(QVector3D(-sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z) - y * y), y, z));
+            ptrToDataArray++;
+        }
+    }
 
     // record the initial corrdinates of the column for rotating later
     zero_coordinates.resize(total_point + 1);
@@ -155,29 +171,29 @@ void ScatterDataModifier::addData()
 }
 
 // The key function, rotating column by rotete matrix, the new column direction are always rotated from (0, 0, 10)
-void ScatterDataModifier::armMoving()
+void ScatterDataModifier::armMoving(float x_axis, float y_axis, float z_axis)
 {
-    i_count++;          // the line of file
+//    i_count++;          // the line of file
     QScatterDataItem *ptrToDataArray = &dataArray->first();
     ptrToDataArray += 8;
 
     // get the unit rotation axis, also the nomal vector of the plane that construct by origin and rotating dots
-    float nv_a = y_axis[0] * z_axis[i_count] - y_axis[i_count] * z_axis[0];
-    float nv_b = -x_axis[0] * z_axis[i_count] + x_axis[i_count] * z_axis[0];
-    float nv_c = x_axis[0] * y_axis[i_count] - x_axis[i_count] * y_axis[0];
+    float nv_a = y_init * z_axis - y_axis * z_init;
+    float nv_b = -x_init * z_axis + x_axis * z_init;
+    float nv_c = x_init * y_axis - x_axis * y_init;
     float len = sqrt(nv_a * nv_a + nv_b * nv_b + nv_c * nv_c);
     float unit_nv_a = nv_a / len;
     float unit_nv_b = nv_b / len;
     float unit_nv_c = nv_c / len;
 
     // get the cos and sin of rotating angle
-    float mult_vector = x_axis[i_count] * x_axis[0] + y_axis[i_count] * y_axis[0]
-            + z_axis[i_count] * z_axis[0];
+    float mult_vector = x_axis * x_init + y_axis * y_init
+            + z_axis * z_init;
 
-    float mult_len_vector = sqrt(x_axis[i_count] * x_axis[i_count] + y_axis[i_count] * y_axis[i_count]
-                                 + z_axis[i_count] * z_axis[i_count])
-            * sqrt(x_axis[0] * x_axis[0] + y_axis[0] * y_axis[0]
-                   + z_axis[0] * z_axis[0]);
+    float mult_len_vector = sqrt(x_axis * x_axis + y_axis * y_axis
+                                 + z_axis * z_axis)
+            * sqrt(x_init * x_init + y_init * y_init
+                   + z_init * z_init);
 
     float cosA = mult_vector / mult_len_vector;
     float sinA = 1.0f - cosA * cosA;
@@ -208,27 +224,27 @@ void ScatterDataModifier::armMoving()
     m_graph->seriesList().at(0)->dataProxy()->resetArray(dataArray);
 
     // the file is end
-    if(i_count == file_count){
-        timer->stop();
-    }
+//    if(i_count == file_count){
+//        timer->stop();
+//    }
 
 }
 
-void ScatterDataModifier::setTime()
-{
-    timer=new QTimer();
-    int speed = 20;
-    timer->setInterval(speed);
-    timer->start();
-    connect(timer,SIGNAL(timeout()),this,SLOT(armMoving()));
-}
+//void ScatterDataModifier::setTime()
+//{
+//    timer=new QTimer();
+//    int speed = 20;
+//    timer->setInterval(speed);
+//    timer->start();
+//    connect(timer,SIGNAL(timeout()),this,SLOT(armMoving()));
+//}
 
-void ScatterDataModifier::setAxis(float *x_axis, float *y_axis, float *z_axis)
-{
-    this->x_axis = x_axis;
-    this->y_axis = y_axis;
-    this->z_axis = z_axis;
-}
+//void ScatterDataModifier::setAxis(float *x_axis, float *y_axis, float *z_axis)
+//{
+//    this->x_axis = x_axis;
+//    this->y_axis = y_axis;
+//    this->z_axis = z_axis;
+//}
 
 void ScatterDataModifier::setFileCount(int count)
 {
@@ -326,4 +342,11 @@ QVector3D ScatterDataModifier::randVector()
                 (float)(rand() % 100) / 2.0f - (float)(rand() % 100) / 2.0f,
                 (float)(rand() % 100) / 100.0f - (float)(rand() % 100) / 100.0f,
                 (float)(rand() % 100) / 2.0f - (float)(rand() % 100) / 2.0f);
+}
+
+void ScatterDataModifier::setInitValue(float x, float y, float z)
+{
+    this->x_init = x;
+    this->y_init = y;
+    this->z_init = z;
 }

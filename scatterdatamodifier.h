@@ -57,13 +57,14 @@ public:
     void setTime();
     void setAxis(float *x_axis, float *y_axis, float *z_axis);
     void setFileCount(int count);
+    void setInitValue(float x, float y, float z);
 
 public Q_SLOTS:
     void changeStyle(int style);
     void changeTheme(int theme);
     void changeShadowQuality(int quality);
     void shadowQualityUpdatedByVisual(QAbstract3DGraph::ShadowQuality shadowQuality);
-    void armMoving();
+    void armMoving(float x, float y, float z);
 
 Q_SIGNALS:
     void backgroundEnabledChanged(bool enabled);
@@ -80,9 +81,10 @@ private:
     int m_itemCount;
     float m_curveDivider;
     QScatterDataArray *dataArray;
-    QTimer *timer;
+//    QTimer *timer;
     int total_point;
-    float *x_axis, *y_axis, *z_axis;
+//    float x_axis, y_axis, z_axis;
+    float x_init, y_init, z_init;
     int i_count, file_count;
     QVector<QVector3D> zero_coordinates;
 };

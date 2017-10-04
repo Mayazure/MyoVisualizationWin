@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author/>
+ <comment/>
+ <exportmacro/>
  <class>ScatterWindow</class>
  <widget class="QWidget" name="ScatterWindow">
   <property name="geometry">
@@ -11,10 +13,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>3DScatter</string>
+   <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="mainLayout"/>
  </widget>
- <resources/>
+ <pixmapfunction/>
  <connections/>
 </ui>

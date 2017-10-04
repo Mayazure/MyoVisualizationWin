@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //    adapter->test();
     form = new Form();
     connect(adapter,SIGNAL(requestUpdateGraph(int, int*,int,int,int,int,int,int,int,int)),form,SLOT(realtimeDataSlot(int, int*,int,int,int,int,int,int,int,int)));
+    connect(adapter,SIGNAL(requestUpdateGyro(float, float, float)),form,SLOT(updateGyro(float, float, float)));
 //    form->show();
 }
 

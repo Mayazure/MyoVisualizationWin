@@ -2,12 +2,7 @@
 #define SCATTERWINDOW_H
 
 #include <QWidget>
-//#include <QtDataVisualization/q3dscatter.h>
-//#include <QtDataVisualization/qabstract3dseries.h>
-
-#include <Q3DScatter>
-
-using namespace QtDataVisualization;
+#include "scatterdatamodifier.h"
 
 namespace Ui {
 class ScatterWindow;
@@ -21,10 +16,11 @@ public:
     explicit ScatterWindow(QWidget *parent = 0);
     ~ScatterWindow();
 
+    void addData(float x, float y, float z);
+
 private:
     Ui::ScatterWindow *ui;
-    Q3DScatter *graph;
-    QWidget *container;
+    ScatterDataModifier *modifier;
 };
 
 #endif // SCATTERWINDOW_H

@@ -40,12 +40,16 @@ Form::Form(QWidget *parent) :
         AVG[i] = 0;
     }
 
+    scatterWindow = new ScatterWindow();
+    ui->generalGraphLayout->addWidget(scatterWindow);
+
+    QHBoxLayout *hLayout = new QHBoxLayout();
     podwindowi = new podwindow();
+    podwindowi->setMinimumSize(400,400);
     podwindowi->setMaximumSize(400,400);
 //    podwindowi->show();
-    ui->generalGraphLayout->addWidget(podwindowi);
-//    scatterWindow = new ScatterWindow();
-//    scatterWindow->show();
+    hLayout->addWidget(podwindowi);
+    ui->generalGraphLayout->addLayout(hLayout);
 }
 
 Form::~Form()
@@ -75,13 +79,22 @@ void Form::setupRealtimeData(QList<QCustomPlot*> plots)
     timeTicker->setTickCount(10);
 
     for(int i=0;i<8;i++){
+
+        plots.at(i)->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+
         plots.at(i)->addGraph();
-        plots.at(i)->graph(0)->setPen(QPen(Qt::blue));
+        plots.at(i)->graph(0)->setPen(QPen(QColor(45,200,250)));
         plots.at(i)->graph(0)->setName("Line"+i);
 
         plots.at(i)->xAxis->setTicker(timeTicker);
         plots.at(i)->axisRect()->setupFullAxesBox();
         plots.at(i)->yAxis->setRange(-130, 130);
+
+        int color = 100;
+        int zeroColor = 150;
+        plots.at(i)->yAxis->grid()->setZeroLinePen(QColor(zeroColor,zeroColor,zeroColor));
+        plots.at(i)->xAxis->grid()->setPen(QColor(color,color,color));
+        plots.at(i)->yAxis->grid()->setPen(QColor(color,color,color));
 
         plots.at(i)->setBackground(QBrush(QColor(60,60,60)));
         plots.at(i)->axisRect()->setBackground(QBrush(QColor(60,60,60)));
@@ -144,6 +157,25 @@ void Form::realtimeDataSlot(int index, int* emgData, int a,int b,int c, int d, i
     else{
         count ++;
     }
+}
+
+void Form::updateGyro(float x, float y, float z)
+{
+//    this->x_axis = x;
+//    this->y_axis = y;
+//    this->z_axis = z;
+//    if(gyroamount < 5){
+//        gyroamount++;
+//    }
+//    else{
+    if(!reploting){
+        return;
+    }
+        scatterWindow->addData(x,y,z);
+//        gyroamount = 0;
+//        qDebug()<<"updategyro();";
+//    }
+
 }
 
 void Form::showGraph(int n)

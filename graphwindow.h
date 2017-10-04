@@ -21,6 +21,7 @@ public:
 
 public slots:
     void realtimeDataSlot(int index, int*, int a,int b,int c, int d, int e, int f,int g, int h);
+    void updateGyro(float, float, float);
 
 private slots:
 
@@ -43,9 +44,14 @@ private:
     QList<QCustomPlot*> plotsHigh;
 
     int inamount = 0;
+    int gyroamount = 0;
     double AVG[8];
     podwindow *podwindowi;
     ScatterWindow *scatterWindow;
+
+    float x_axis = 0;
+    float y_axis = 0;
+    float z_axis = 0;
 
     void showGraph(int n);
 };
