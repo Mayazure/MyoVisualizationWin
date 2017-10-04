@@ -121,7 +121,7 @@ void ScatterDataModifier::addData()
     //! [6]
     // draw the column points to (0, 0, 10)
     total_point = 0;
-    for (float z = 0.0f; z <= 10.0f; z += 1.0f){
+    for (float z = 0.0f; z <= 10.5f; z += 0.5f){
         for (float theta = 0.0f; theta < PI / 2 + PI / 10; theta += PI / 10, total_point += 4){
             float y = 1 * qCos(theta);
             ptrToDataArray->setPosition(QVector3D(sqrt(1.0f - y * y), y, z));
@@ -138,8 +138,9 @@ void ScatterDataModifier::addData()
     }
     //! [6]
 
-    for (float z = 11.0f; z <= 15.0f; z += 1.0f){
-        for (float theta = 0.0f; theta < PI / 2 + PI / 10; theta += PI / 10, total_point += 4){
+    for (float z = 11.0f; z <= 15.0f; z += 0.5f){
+        float denominator = (15.0f - z) * 6.0f;
+        for (float theta = 0.0f; theta < PI / 2 + PI / denominator; theta += PI / denominator, total_point += 4){
             float y = sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z)) * qCos(theta);
             ptrToDataArray->setPosition(QVector3D(sqrt(2.0f / 5.0f * (15.0f - z) * (15.0f - z) - y * y), y, z));
             ptrToDataArray++;
