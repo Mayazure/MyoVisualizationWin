@@ -5,6 +5,9 @@
 #include "qcustomplot.h"
 #include "podwindow.h"
 #include "scatterwindow.h"
+#include "fileadapter.h"
+
+class FileAdapter;
 
 namespace Ui {
 class Form;
@@ -36,6 +39,8 @@ private slots:
     void on_showH_clicked();
     void on_showPause_clicked();
 
+    void on_showLoad_clicked();
+
 private:
     Ui::Form *ui;
     int count = 0;
@@ -54,6 +59,7 @@ private:
     float z_axis = 0;
 
     void showGraph(int n);
+    FileAdapter *fa;
 };
 
 #endif // GRAPHWINDOW_H

@@ -1,6 +1,7 @@
 #include "graphwindow.h"
 #include "ui_graphwindow.h"
 #include <QtAlgorithms>
+#include <QFileDialog>
 
 Form::Form(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,8 @@ Form::Form(QWidget *parent) :
     QString timeString = time.toString("yyyy-MM-dd");
     QString title = "Myo Control Graph - "+timeString;
     setWindowTitle(title);
+
+    fa = new FileAdapter(this);
 
     plots.clear();
     plots.append(ui->customePlot);
@@ -251,4 +254,11 @@ void Form::on_showPause_clicked()
         reploting = true;
         ui->showPause->setText("Pause");
     }
+}
+
+void Form::on_showLoad_clicked()
+{
+    QString file_name = QFileDialog::getOpenFileName(nullptr,"EMG file","*.csv");
+    qDebug()<<file_name;
+    fa->load(file_name);
 }

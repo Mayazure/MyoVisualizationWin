@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     myobutton.cpp \
     scatterwindow.cpp \
     scatterdatamodifier.cpp \
-    scatterwindow.cpp
+    scatterwindow.cpp \
+    fileadapter.cpp
 
 HEADERS  += mainwindow.h \
     myo/cxx/detail/ThrowOnError.hpp \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     myobutton.h \
     scatterwindow.h \
     scatterdatamodifier.h \
-    scatterwindow.h
+    scatterwindow.h \
+    fileadapter.h
 
 FORMS    += mainwindow.ui \
     graphwindow.ui \
