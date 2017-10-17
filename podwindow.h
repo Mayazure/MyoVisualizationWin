@@ -7,6 +7,7 @@
 #include <QString>
 #include <QFile>
 #include "myobutton.h"
+#include "gesturewindow.h"
 
 struct podsPropertie{
     int angle = 0;
@@ -42,6 +43,7 @@ private:
     void openfile();
     QFile *file;
     //    void initPodsPro();
+    GestureWindow *gw;
 
 private slots:
     void button0_clicked();

@@ -26,6 +26,8 @@ podwindow::podwindow(QWidget *parent) :
 //    openfile();
 
     //    connect(ePods.at(0),SIGNAL(clicked(bool)),this,SLOT(button0_clicked()));
+    gw = new GestureWindow();
+    gw->show();
 }
 
 podwindow::~podwindow()
@@ -63,15 +65,16 @@ void podwindow::updatePods(double *podsvalue, int len)
     int th = 8;
     QString currentDirect;
     if(avgL-avgR>th){
-        currentDirect = "L";
+        currentDirect = "Left";
     }
     else if(avgR-avgL>th){
-        currentDirect = "R";
+        currentDirect = "Right";
     }
     else{
-        currentDirect = "M";
+        currentDirect = "-";
     }
     gestureLabel->setText(currentDirect);
+    gw->setGestureLabel(currentDirect);
     if(currentDirect!=direct){
         direct = currentDirect;
 //        writeToFile();

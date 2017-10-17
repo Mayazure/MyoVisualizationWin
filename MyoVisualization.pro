@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     scatterwindow.cpp \
     scatterdatamodifier.cpp \
     scatterwindow.cpp \
-    fileadapter.cpp
+    fileadapter.cpp \
+    gesturewindow.cpp
 
 HEADERS  += mainwindow.h \
     myo/cxx/detail/ThrowOnError.hpp \
@@ -65,13 +66,15 @@ HEADERS  += mainwindow.h \
     scatterwindow.h \
     scatterdatamodifier.h \
     scatterwindow.h \
-    fileadapter.h
+    fileadapter.h \
+    gesturewindow.h
 
 FORMS    += mainwindow.ui \
     graphwindow.ui \
     podwindow.ui \
     scatterwindow.ui \
-    scatterwindow.ui
+    scatterwindow.ui \
+    gesturewindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/./ -lmyo64
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/./ -lmyo64
