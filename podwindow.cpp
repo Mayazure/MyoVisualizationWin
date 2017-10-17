@@ -10,14 +10,14 @@ podwindow::podwindow(QWidget *parent) :
     ui->setupUi(this);
 
     initPods();
-    ui->gridLayout->addWidget(ePods.at(0),0,1,Qt::AlignCenter);
-    ui->gridLayout->addWidget(ePods.at(1),0,2,Qt::AlignCenter);
+    ui->gridLayout->addWidget(ePods.at(0),2,1,Qt::AlignCenter);
+    ui->gridLayout->addWidget(ePods.at(1),2,2,Qt::AlignCenter);
     ui->gridLayout->addWidget(ePods.at(2),1,2,Qt::AlignCenter);
-    ui->gridLayout->addWidget(ePods.at(3),2,2,Qt::AlignCenter);
-    ui->gridLayout->addWidget(ePods.at(4),2,1,Qt::AlignCenter);
-    ui->gridLayout->addWidget(ePods.at(5),2,0,Qt::AlignCenter);
+    ui->gridLayout->addWidget(ePods.at(3),0,2,Qt::AlignCenter);
+    ui->gridLayout->addWidget(ePods.at(4),0,1,Qt::AlignCenter);
+    ui->gridLayout->addWidget(ePods.at(5),0,0,Qt::AlignCenter);
     ui->gridLayout->addWidget(ePods.at(6),1,0,Qt::AlignCenter);
-    ui->gridLayout->addWidget(ePods.at(7),0,0,Qt::AlignCenter);
+    ui->gridLayout->addWidget(ePods.at(7),2,0,Qt::AlignCenter);
 
     //    connect(ePods.at(0),SIGNAL(clicked(bool)),this,SLOT(button0_clicked()));
 }
@@ -47,32 +47,61 @@ void podwindow::updatePods(double *podsvalue, int len)
 
 void podwindow::initPods()
 {
+//    for(int i=0;i<8;i++){
+//        int type = 0;
+//        switch(i){
+//        case 0:
+//            type = 0;
+//            break;
+//        case 1:
+//            type = 4;
+//            break;
+//        case 2:
+//            type = 3;
+//            break;
+//        case 3:
+//            type = 5;
+//            break;
+//        case 4:
+//            type = 1;
+//            break;
+//        case 5:
+//            type = 4;
+//            break;
+//        case 6:
+//            type = 2;
+//            break;
+//        case 7:
+//            type = 5;
+//            break;
+//        }
+
     for(int i=0;i<8;i++){
         int type = 0;
         switch(i){
         case 0:
-            type = 0;
+            type = 1;
             break;
         case 1:
-            type = 4;
+            type = 5;
             break;
         case 2:
             type = 3;
             break;
         case 3:
-            type = 5;
+            type = 4;
             break;
         case 4:
-            type = 1;
+            type = 0;
             break;
         case 5:
-            type = 4;
+            type = 5;
             break;
         case 6:
             type = 2;
             break;
         case 7:
-            type = 5;
+            type = 4;
             break;
         }
 
