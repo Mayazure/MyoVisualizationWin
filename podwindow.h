@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QToolButton>
+#include <QLabel>
+#include <QString>
+#include <QFile>
 #include "myobutton.h"
 
 struct podsPropertie{
@@ -31,8 +34,13 @@ private:
     MyoButton* myobutton;
     QList<MyoButton*> ePods;
     podsPropertie podsPro[8];
+    QLabel *gestureLabel;
+    QString direct;
 
     void initPods();
+    void writeToFile(QString line);
+    void openfile();
+    QFile *file;
     //    void initPodsPro();
 
 private slots:

@@ -119,7 +119,7 @@ void Form::realtimeDataSlot(int index, int* emgData, int a,int b,int c, int d, i
 
     int emg[8]={a,b,c,d,e,f,g,h};
 
-    if(inamount<20){
+    if(inamount<25){
         inamount++;
         for(int i=0;i<8;i++){
             AVG[i] = AVG[i]+qAbs((double)emg[i]/(double)inamount);
