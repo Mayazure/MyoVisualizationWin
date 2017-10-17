@@ -1,6 +1,7 @@
 #include "podwindow.h"
 #include "ui_podwindow.h"
 #include <QPalette>
+#include <QDebug>
 
 podwindow::podwindow(QWidget *parent) :
     QWidget(parent),
@@ -29,7 +30,9 @@ podwindow::~podwindow()
 void podwindow::updatePods(double *podsvalue, int len)
 {
     for(int i=0;i<len;i++){
-        double value = 0.0133*podsvalue[i]*podsvalue[i]-0.531*podsvalue[i]+0.518;
+//        double value = 0.0133*podsvalue[i]*podsvalue[i]-0.531*podsvalue[i]+0.518;
+//        qDebug()<<podsvalue[i];
+        double value = podsvalue[i];
         if(value>255){
             value = 255;
         }
