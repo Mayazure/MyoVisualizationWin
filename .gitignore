@@ -33,7 +33,4 @@
 
 # Qt
 *.user
-*.user
-MyoVisualization.pro.user
-*.user
-*.user
+*.pro.user
